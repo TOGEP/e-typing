@@ -25,8 +25,6 @@ func main() {
 		log.Fatalf("failed to navigate:%v", err)
 	}
 
-	time.Sleep(time.Second * 2)
-
 	id := page.FindByID("user_id")
 	pass := page.FindByID("password")
 	err = godotenv.Load("login.env")
@@ -38,6 +36,25 @@ func main() {
 	if err := page.FindByID("login_btn").Submit(); err != nil {
 		log.Fatalf("failed to login:%v", err)
 	}
-	//DEBUG
-	time.Sleep(time.Second * 5)
+
+	if err := page.FindByID("skilcheck_btn").Click(); err != nil {
+		log.Fatalf("failed to click:%v", err)
+	}
+
+	time.Sleep(time.Second)
+
+	if err := page.FindByID("typing_app_frame").SwitchToFrame(); err != nil {
+		log.Fatalf("failed to swich frame:%v", err)
+	}
+	if err := page.FindByXPath("//*[@id=\"start_btn\"]").Click(); err != nil {
+		log.Fatalf("failed to click:%v", err)
+	}
+
+	time.Sleep(time.Second)
+
+	if err := page.FindByXPath("/html/body").SendKeys(" "); err != nil {
+		log.Fatalf("failed to send space%v", err)
+	}
+
+	time.Sleep(time.Second * 3)
 }
