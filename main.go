@@ -57,4 +57,11 @@ func main() {
 	}
 
 	time.Sleep(time.Second * 3)
+	for {
+		keys, _ := page.FindByXPath("//*[@id=\"sentenceText\"]/div/span[2]").Text()
+		for _, key := range keys {
+			_ = page.Find("body").SendKeys(string([]rune{key}))
+		}
+		time.Sleep(time.Millisecond * 890)
+	}
 }
